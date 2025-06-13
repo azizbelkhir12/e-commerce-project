@@ -1,0 +1,211 @@
+<!--=============== MAIN ===============-->
+<main class="main">
+  <!--=============== HOME ===============-->
+  <section class="home section--lg">
+    <div class="home__container container grid">
+      <div class="home__content">
+        <span class="home__subtitle">Hot Promotions</span>
+        <h1 class="home__title">
+          Fashion Trending <span>Great Collection</span>
+        </h1>
+        <p class="home__description">Save more with coupons & up tp 20% off</p>
+        <a routerLink="/products" class="btn">Shop Now</a>
+      </div>
+      <img src="assets/img/home-img.png" class="home__img" alt="hats" />
+    </div>
+  </section>
+
+  <!--=============== CATEGORIES ===============-->
+  <!-- <section class="categories container section">
+    <h3 class="section__title"><span>Popular</span> Categories</h3>
+    <div class="categories__container swiper">
+      <div class="swiper-wrapper">
+        <a href="shop.html" class="category__item swiper-slide">
+          <img src="assets/img/category-1.jpg" alt="" class="category__img" />
+          <h3 class="category__title">T-Shirt</h3>
+        </a>
+        <a href="shop.html" class="category__item swiper-slide">
+          <img src="assets/img/category-2.jpg" alt="" class="category__img" />
+          <h3 class="category__title">Bags</h3>
+        </a>
+        <a href="shop.html" class="category__item swiper-slide">
+          <img src="assets/img/category-3.jpg" alt="" class="category__img" />
+          <h3 class="category__title">Sandal</h3>
+        </a>
+        <a href="shop.html" class="category__item swiper-slide">
+          <img src="assets/img/category-4.jpg" alt="" class="category__img" />
+          <h3 class="category__title">Scarf Cap</h3>
+        </a>
+        <a href="shop.html" class="category__item swiper-slide">
+          <img src="assets/img/category-5.jpg" alt="" class="category__img" />
+          <h3 class="category__title">Shoes</h3>
+        </a>
+        <a href="shop.html" class="category__item swiper-slide">
+          <img src="assets/img/category-6.jpg" alt="" class="category__img" />
+          <h3 class="category__title">Pillowcase</h3>
+        </a>
+        <a href="shop.html" class="category__item swiper-slide">
+          <img src="assets/img/category-7.jpg" alt="" class="category__img" />
+          <h3 class="category__title">Jumpsuit</h3>
+        </a>
+        <a href="shop.html" class="category__item swiper-slide">
+          <img src="assets/img/category-8.jpg" alt="" class="category__img" />
+          <h3 class="category__title">Hats</h3>
+        </a>
+      </div>
+
+      <div class="swiper-button-prev">
+        <i class="fi fi-rs-angle-left"></i>
+      </div>
+      <div class="swiper-button-next">
+        <i class="fi fi-rs-angle-right"></i>
+      </div>
+    </div>
+  </section> -->
+  <section class="products container section-lg">
+    <h3 class="section__title"><span>Best</span> Sellers</h3>
+
+    <div class="new__container swiper">
+      <!-- Navigation buttons (outside of swiper-wrapper) -->
+      <!-- <div class="swiper-button-prev">
+        <i class="fi fi-rs-angle-left"></i>
+      </div> -->
+      <!-- <div class="swiper-button-next">
+        <i class="fi fi-rs-angle-right"></i>
+      </div> -->
+      <div class="swiper-wrapper">
+        <div
+          
+          *ngFor="let product of bestSellers; let i = index"
+        >
+        <span style="padding-right: 10px;">
+          <app-product [prod]="product"></app-product>
+        </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=============== DEALS ===============-->
+  <section class="deals section">
+    <div class="deals__container container grid">
+      <div class="deals__item">
+        <div class="deals__group">
+          <h3 class="deals__brand">Deals of the Day</h3>
+          <span class="deals__category">Limited quantities</span>
+        </div>
+        <h4 class="deals__title">Summer Collection New Modern Design</h4>
+        <div class="deals__price flex">
+          <span class="new__price">$139.00</span>
+          <span class="old__price">$160.99</span>
+        </div>
+        <div class="deals__group">
+          <p class="deals__countdown-text">Hurry Up! Offer Ends In:</p>
+          <div class="countdown">
+            <div class="countdown__amount">
+              <p class="countdown__period">{{ countdown.days }}</p>
+              <span class="unit">Days</span>
+            </div>
+            <div class="countdown__amount">
+              <p class="countdown__period">{{ countdown.hours }}</p>
+              <span class="unit">Hours</span>
+            </div>
+            <div class="countdown__amount">
+              <p class="countdown__period">{{ countdown.minutes }}</p>
+              <span class="unit">Mins</span>
+            </div>
+            <div class="countdown__amount">
+              <p class="countdown__period">{{ countdown.seconds }}</p>
+              <span class="unit">Sec</span>
+            </div>
+          </div>
+        </div>
+        <div class="deals__btn">
+          <a routerLink="/products" class="btn btn--md">Shop Now</a>
+        </div>
+      </div>
+      <div class="deals__item">
+        <div class="deals__group">
+          <h3 class="deals__brand">Women Clothing</h3>
+          <span class="deals__category">Shirts & Bag</span>
+        </div>
+        <h4 class="deals__title">Try Something new on vacation</h4>
+        <div class="deals__price flex">
+          <span class="new__price">$178.00</span>
+          <span class="old__price">$256.99</span>
+        </div>
+        <div class="deals__group">
+          <p class="deals__countdown-text">Hurry Up! Offer Ends In:</p>
+          <div class="countdown">
+            <div class="countdown__amount">
+              <p class="countdown__period">{{ countdown.days }}</p>
+              <span class="unit">Days</span>
+            </div>
+            <div class="countdown__amount">
+              <p class="countdown__period">{{ countdown.hours }}</p>
+              <span class="unit">Hours</span>
+            </div>
+            <div class="countdown__amount">
+              <p class="countdown__period">{{ countdown.minutes }}</p>
+              <span class="unit">Mins</span>
+            </div>
+            <div class="countdown__amount">
+              <p class="countdown__period">{{ countdown.seconds }}</p>
+              <span class="unit">Sec</span>
+            </div>
+          </div>
+        </div>
+        <div class="deals__btn">
+          <a routerLink="/products" class="btn btn--md">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--=============== NEW ARRIVALS ===============-->
+  <section
+    class="products container section-lg"
+    aria-labelledby="new-arrivals-heading"
+  >
+    <h3 class="section__title" id="new-arrivals-heading">
+      <span class="highlight">New</span> Arrivals
+    </h3>
+
+    <div class="new__container swiper">
+      <!-- Navigation buttons - hidden on mobile -->
+      <button class="swiper-button-prev" aria-label="Previous products">
+        <i class="fi fi-rs-angle-left" aria-hidden="true"></i>
+      </button>
+      <button class="swiper-button-next" aria-label="Next products">
+        <i class="fi fi-rs-angle-right" aria-hidden="true"></i>
+      </button>
+
+      <div class="swiper-wrapper">
+        <ng-container *ngIf="newArrivals?.length; else loadingState">
+          <div
+            class="swiper-slide"
+            *ngFor="let product of newArrivals; trackBy: trackProductById"
+          >
+            <app-product [prod]="product"></app-product>
+          </div>
+        </ng-container>
+
+        <ng-template #loadingState>
+          <div class="swiper-slide" *ngFor="let item of placeholderItems">
+            <app-product></app-product>
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Pagination - visible only on mobile -->
+      <div class="swiper-pagination mobile-only"></div>
+    </div>
+  </section>
+  <!--=============== SHOWCASE ===============-->
+</main>
+
+<!--=============== SWIPER JS ===============-->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!--=============== MAIN JS ===============-->
+<script src="assets/js/main.js"></script>

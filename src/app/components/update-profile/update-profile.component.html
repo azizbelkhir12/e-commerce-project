@@ -1,0 +1,126 @@
+<div class="container section">
+  <div *ngIf="successMessage" class="success-message">
+    <span>{{ successMessage }}</span>
+    <button type="button" class="close-btn" (click)="closeMessage()">✖</button>
+  </div>
+  <div class="account__form">
+    <form class="form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <!-- Username -->
+      <div class="form__group">
+        <input
+          type="text"
+          formControlName="username"
+          [value]="user?.username"
+          placeholder="Username"
+          class="form__input"
+          [ngClass]="{
+            'form__input--error':
+              profileForm.get('username')?.invalid &&
+              profileForm.get('username')?.touched
+          }"
+        />
+        <div
+          *ngIf="
+            profileForm.get('username')?.invalid &&
+            profileForm.get('username')?.touched
+          "
+          class="form__error"
+        >
+          <span *ngIf="profileForm.get('username')?.errors?.['required']">
+            Username is required
+          </span>
+          <span *ngIf="profileForm.get('username')?.errors?.['minlength']">
+            Minimum
+            {{ profileForm.get('username')?.errors?.['minlength'].requiredLength }}
+            characters
+          </span>
+          <span *ngIf="profileForm.get('username')?.errors?.['maxlength']">
+            Maximum 30 characters
+          </span>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form__group">
+        <input
+          type="email"
+          formControlName="email"
+          [value]="user?.email"
+          placeholder="Email"
+          class="form__input"
+          [ngClass]="{
+            'form__input--error':
+              profileForm.get('email')?.invalid &&
+              profileForm.get('email')?.touched
+          }"
+        />
+        <div
+          *ngIf="
+            profileForm.get('email')?.invalid &&
+            profileForm.get('email')?.touched
+          "
+          class="form__error"
+        >
+          <span *ngIf="profileForm.get('email')?.errors?.['required']">
+            Email is required
+          </span>
+          <span *ngIf="profileForm.get('email')?.errors?.['email']">
+            Please enter a valid email
+          </span>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="form__group">
+        <input
+          type="tel"
+          formControlName="phone"
+          [value]="user?.phone"
+          placeholder="Phone"
+          class="form__input"
+          [ngClass]="{
+            'form__input--error':
+              profileForm.get('phone')?.invalid &&
+              profileForm.get('phone')?.touched
+          }"
+        />
+        <div
+          *ngIf="
+            profileForm.get('phone')?.invalid &&
+            profileForm.get('phone')?.touched
+          "
+          class="form__error"
+        >
+          <span *ngIf="profileForm.get('phone')?.errors?.['pattern']">
+            Please enter a valid phone number
+          </span>
+        </div>
+      </div>
+
+      <!-- Date of Birth -->
+      <div class="form__group">
+        <input type="date" formControlName="dateOfBirth" class="form__input" />
+
+        <div
+          *ngIf="
+            profileForm.get('dateOfBirth')?.invalid &&
+            profileForm.get('dateOfBirth')?.touched
+          "
+          class="form__error"
+        >
+          <span *ngIf="profileForm.get('dateOfBirth')?.errors?.['required']">
+            Date of Birth is required
+          </span>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn--primary save-btn"
+        [disabled]="profileForm.invalid"
+      >
+        Save
+      </button>
+    </form>
+  </div>
+</div>

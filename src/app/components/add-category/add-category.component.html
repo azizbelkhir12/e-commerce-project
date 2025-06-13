@@ -1,0 +1,20 @@
+<form (ngSubmit)="onSubmit()">
+    <div class="form-elements-wrapper">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card-style mb-30">
+            <h6 class="mb-25">Add Category Details</h6>
+  
+            <!-- Product Name -->
+            <div class="input-style-1">
+              <label>Category Name</label>
+              <input name="name" [(ngModel)]="Catname" type="text" placeholder="Category Name" />
+            </div>
+  
+            <button type="submit" class="btn btn-primary" [disabled]="">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  

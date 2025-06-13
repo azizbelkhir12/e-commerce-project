@@ -1,0 +1,87 @@
+<div class="popup-overlay" (click)="closePopup()">
+  <div class="popup-container" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closePopup()">&times;</button>
+    <div id="receipt-content" class="p-4">
+      <div class="order-popup-content">
+        <div class="order-header">
+          <h2>Your Order #{{ order._id }}</h2>
+          <div class="order-meta">
+            <span class="order-date"
+              >Placed on {{ order.date | date : "mediumDate" }}</span
+            >
+            <span class="order-status {{ order.status }}">{{
+              order.status | titlecase
+            }}</span>
+          </div>
+        </div>
+
+        <div class="order-summary">
+          <div class="summary-item">
+            <span>Payment Method</span>
+            <span>{{ order.paymentMethod }}</span>
+          </div>
+          <div class="summary-item">
+            <span>Items</span>
+            <span>{{ order.products.length }}</span>
+          </div>
+          <div class="summary-item total">
+            <span>Total Amount</span>
+            <span>{{ order.totalPrice | currency }}</span>
+          </div>
+        </div>
+
+        <div class="products-section">
+          <h3>Order Items</h3>
+          <div class="product-list">
+            <div
+              class="product-item"
+              *ngFor="let item of order.products; let i = index"
+            >
+              <img
+                [src]="products[i].images[0]"
+                alt="{{ products[i].name }}"
+                class="product-image"
+              />
+              <div class="product-info">
+                <h4>{{ products[i].name }}</h4>
+                <p class="product-quantity">Quantity: {{ item.quantity }}</p>
+                <p class="product-price">
+                  {{ products[i].price | currency }} each
+                </p>
+              </div>
+              <div class="product-subtotal">
+                {{ products[i].price * item.quantity | currency }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="billing-section">
+          <h3>Billing Details</h3>
+          <div class="billing-details">
+            <p>{{ order.billingDetails.name }}</p>
+            <p>{{ order.billingDetails.address }}</p>
+            <p>
+              {{ order.billingDetails.city }},
+              {{ order.billingDetails.postcode }}
+            </p>
+            <p>{{ order.billingDetails.country }}</p>
+            <p><strong>Phone:</strong> {{ order.billingDetails.phone }}</p>
+            <p><strong>Email:</strong> {{ order.billingDetails.email }}</p>
+            <p *ngIf="order.billingDetails.notes">
+              <strong>Notes:</strong> {{ order.billingDetails.notes }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="popup-actions no-print">
+        <button (click)="generatePDF()" class="btn print-btn">
+          <i class="fas fa-print"> </i> Print Receipt
+        </button>
+        <button class="btn support-btn">
+          <i class="fas fa-headset"></i> Contact Support
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

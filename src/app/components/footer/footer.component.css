@@ -1,0 +1,12 @@
+/* Footer Payment Section */
+.footer__payment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-left: -110px;
+}
+.payment__img2 {
+  width: 30px;
+  height: 30px;
+}

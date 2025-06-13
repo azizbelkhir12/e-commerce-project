@@ -1,0 +1,67 @@
+<main class="main">
+  <section class="login-register section--lg">
+    <div class="login-register__container container grid">
+      <div class="login">
+        <h3 class="section__title">Admin Login</h3>
+        <form class="form grid" (ngSubmit)="login()">
+          <input
+            type="email"
+            (input)="errorMessage = ''"
+            [(ngModel)]="email"
+            name="Email"
+            placeholder="Admin Email"
+            class="form__input"
+            required
+            email
+            #emailRef="ngModel"
+          />
+          <small class="error" *ngIf="emailRef.invalid && emailRef.touched">
+            Please enter a valid email
+          </small>
+
+          <div class="password-input-container">
+            <input
+              [(ngModel)]="password"
+              (input)="errorMessage = ''"
+              name="Password"
+              placeholder="Admin Password"
+              class="form__input"
+              required
+              #passwordRef="ngModel"
+              [type]="passwordVisible ? 'text' : 'password'"
+            />
+            <button
+              type="button"
+              (click)="passwordVisible = !passwordVisible"
+              class="toggle-password-btn"
+            >
+              <i class="ri-eye-line" *ngIf="!passwordVisible"></i>
+              <i class="ri-eye-off-line" *ngIf="passwordVisible"></i>
+            </button>
+          </div>
+          <small
+            class="error"
+            *ngIf="passwordRef.invalid && passwordRef.touched"
+          >
+            Please enter your password
+          </small>
+          <small class="error" *ngIf="errorMessage">{{ errorMessage }}</small>
+
+          <div class="form__btn">
+            <button
+              class="btn"
+              type="submit"
+              [disabled]="emailRef.invalid || passwordRef.invalid"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+
+        <div class="form__links">
+          <a routerLink="/admin/forgot-password">Forgot your admin password?</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

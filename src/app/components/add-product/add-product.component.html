@@ -1,0 +1,101 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div class="form-elements-wrapper">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card-style mb-30">
+          <h6 class="mb-25">Add Product Details</h6>
+
+          <!-- Brand -->
+          <div class="input-style-1">
+            <label>Brand</label>
+            <input formControlName="brand" type="text" placeholder="Brand" />
+            <div *ngIf="productForm.get('brand')?.invalid && productForm.get('brand')?.touched">
+              <small class="text-danger" *ngIf="productForm.get('brand')?.hasError('required')">Brand is required.</small>
+            </div>
+          </div>
+
+          <!-- Product Name -->
+          <div class="input-style-1">
+            <label>Product Name</label>
+            <input formControlName="name" type="text" placeholder="Product Name" />
+            <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
+              <small class="text-danger" *ngIf="productForm.get('name')?.hasError('required')">Product Name is required.</small>
+              <small class="text-danger" *ngIf="productForm.get('name')?.hasError('minlength')">Product Name must be at least 3 characters long.</small>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="input-style-1">
+            <label>Description</label>
+            <input formControlName="description" type="text" placeholder="Description" />
+            <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
+              <small class="text-danger" *ngIf="productForm.get('description')?.hasError('required')">Description is required.</small>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="input-style-1">
+            <label>Price</label>
+            <input formControlName="price" type="number" placeholder="Price" />
+            <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+              <small class="text-danger" *ngIf="productForm.get('price')?.hasError('required')">Price is required.</small>
+              <small class="text-danger" *ngIf="productForm.get('price')?.hasError('min')">Price must be a positive value.</small>
+            </div>
+          </div>
+
+          <!-- Stock -->
+          <div class="input-style-1">
+            <label>Stock</label>
+            <input formControlName="stock" type="number" placeholder="Stock" />
+            <div *ngIf="productForm.get('stock')?.invalid && productForm.get('stock')?.touched">
+              <small class="text-danger" *ngIf="productForm.get('stock')?.hasError('required')">Stock is required.</small>
+              <small class="text-danger" *ngIf="productForm.get('stock')?.hasError('min')">Stock must be a positive number.</small>
+            </div>
+          </div>
+
+          <div class="input-style-1">
+            <label>Size</label>
+            <input formControlName="size" type="text" placeholder="Size" />
+            <div *ngIf="productForm.get('size')?.invalid && productForm.get('size')?.touched">
+              <small class="text-danger" *ngIf="productForm.get('size')?.hasError('required')">Size is required.</small>
+            </div>
+          </div>
+
+
+          <div class="input-style-1">
+            <label>Main Images</label>
+            <input type="file" (change)="onFileSelected($event, 'main')" multiple accept="image/*" />
+            <div *ngIf="previewUrls.length > 0" class="image-previews">
+              <div *ngFor="let url of previewUrls; let i = index" class="image-preview">
+                <img [src]="url" alt="Preview" class="preview-image">
+                <button type="button" (click)="removeImage(i, 'main')" class="remove-btn">×</button>
+              </div>
+            </div>
+            <small *ngIf="selectedImages.length === 0" class="text-danger">At least one main image is required</small>
+          </div>
+        
+          <!-- Category -->
+          <div class="select-style-1">
+            <label>Category</label>
+            <div class="select-position">
+              <select formControlName="category">
+                <option *ngFor="let category of categories" [value]="category.Catname">{{category.Catname}}</option>
+              </select>
+            </div>
+            <div class="text-danger" *ngIf="productForm.get('category')?.touched && productForm.get('category')?.invalid">
+              Category is required.
+            </div>
+          </div>
+
+          <!-- Discount -->
+          <div class="input-style-1">
+            <label>Discount</label>
+            <input formControlName="discount" type="number" placeholder="Discount (optional)" />
+          </div>
+
+          <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

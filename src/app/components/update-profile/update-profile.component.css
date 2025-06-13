@@ -1,0 +1,255 @@
+/* ================================================ 
+                  PROFILE FORM STYLES
+================================================ */
+
+.container.section {
+  max-width: 800px;
+  padding: 0;
+}
+
+/* Success Message Styles */
+.success-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  background-color: #e6f7ee;
+  color: #0a5c36;
+  border-radius: 6px;
+  border-left: 4px solid #0a5c36;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.success-message__content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #0a5c36;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  transition: opacity 0.2s ease;
+}
+
+.close-btn:hover {
+  opacity: 0.8;
+}
+
+/* Form Container */
+.account__form {
+  width: 100%;
+  background: #fff;
+  margin-left: 0;
+}
+
+.form__header {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.form__subtitle {
+  color: #7f8c8d;
+  font-size: 0.9375rem;
+}
+
+/* Form Elements */
+.form {
+  display: grid;
+  gap: 1.75rem;
+  max-width: 500px;
+  width: 100%;
+}
+
+.form__group {
+  width: 100%;
+}
+
+.form__label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #34495e;
+}
+
+.form__input {
+  width: 100%;
+  min-width: 100%;
+  padding: 0.875rem 1.25rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  transition: all 0.25s ease;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.form__input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+  background-color: #fff;
+}
+
+.form__input--error {
+  border-color: #e74c3c;
+  background-color: #fef6f6;
+}
+
+.form__input--error:focus {
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.form__error {
+  font-size: 0.8125rem;
+  color: #e74c3c;
+  margin-top: -0.25rem;
+}
+
+/* Button Styles */
+.btn {
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #000;
+  color: white;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn--primary:hover:not(:disabled) {
+  color: #000;
+  transform: translateY(-2px);
+  background-color: transparent;
+  border: #000 1px solid;
+}
+
+.btn:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Form Footer */
+.form__footer {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #7f8c8d;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================================ 
+                  RESPONSIVE ADJUSTMENTS
+================================================ */
+
+/* Medium devices (tablets, 768px and down) */
+@media (max-width: 768px) {
+  .container.section {
+    padding: 0 1.5rem;
+  }
+
+  .account__form {
+    padding: 2rem;
+  }
+
+  .form {
+    gap: 1.5rem;
+  }
+
+  .form__title {
+    font-size: 1.375rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Small devices (phones, 576px and down) */
+@media (max-width: 576px) {
+  .container.section {
+    padding: 0 1rem;
+    margin: 1.5rem auto;
+  }
+
+  .account__form {
+    padding: 1.75rem 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .success-message {
+    margin-bottom: 1.5rem;
+    padding: 0.875rem;
+    font-size: 0.9375rem;
+  }
+
+  .close-btn {
+    font-size: 1.1rem;
+  }
+
+  .form {
+    gap: 1.25rem;
+  }
+
+  .form__title {
+    font-size: 1.25rem;
+  }
+
+  .form__input {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .form__error {
+    font-size: 0.75rem;
+  }
+
+  .btn {
+    padding: 0.875rem;
+    font-size: 0.9375rem;
+  }
+}
+
+/* Extra small devices (phones, 400px and down) */
+@media (max-width: 400px) {
+  .container.section {
+    padding: 0 0.75rem;
+  }
+
+  .account__form {
+    padding: 1.5rem 1rem;
+  }
+
+  .form__input {
+    padding: 0.6875rem 0.875rem;
+  }
+
+  .btn {
+    padding: 0.8125rem;
+  }
+}

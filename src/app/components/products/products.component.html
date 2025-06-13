@@ -1,0 +1,97 @@
+<app-banner [titre1]="title1" [titre2]="title2"></app-banner>
+
+<!-- Products Shop Start-->
+<div class="container-fluid  ">
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-lg-12">
+                <div class="row g-4">
+                    <div class="col-xl-3"></div>
+                    <div class="col-6"></div>
+                    <div class="col-xl-3">
+                        <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
+                            <label for="fruits">Default Sorting:</label>
+                            <select id="sorting" name="sorting" [(ngModel)]="selectedSorting"
+                                (change)="onSortChange($event)" class="border-0 form-select-sm bg-light me-3"
+                                form="sortingForm">
+                                <option value="nothing">Nothing</option>
+                                <option value="price_asc">Price: Low to High</option>
+                                <option value="price_desc">Price: High to Low</option>
+                                <option value="name_asc">Alphabetical: A-Z</option>
+                                <option value="name_desc">Alphabetical: Z-A</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3">
+                        <div class="row g-4">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <h4>Categories</h4>
+                                    <ul class="list-unstyled fruite-categorie">
+                                        <li *ngFor="let category of categories">
+                                            <div class="d-flex fruite-name" style="padding-top: 5px;">
+                                                <input type="checkbox" class="me-2"
+                                                    [checked]="selectedCategories.includes(category.Catname)"
+                                                    (change)="onCategoryChange(category.Catname)"
+                                                    id="category-{{category._id}}" name="category-{{category._id}}"
+                                                    [value]="category.Catname">
+                                                <label for="category-{{category._id}}">{{category.Catname}}</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <h4>Brand</h4>
+                                    <ul class="list-unstyled fruite-categorie">
+                                        <li *ngFor="let product of products | unique:'brand'">
+                                            <div class="d-flex fruite-name" style="padding-top: 5px;">
+                                                <input type="checkbox" class="me-2"
+                                                    [checked]="selectedBrands.includes(product.brand)"
+                                                    (change)="onBrandChange(product.brand)" id="brand-{{product.brand}}"
+                                                    name="brand-{{product.brand}}" [value]="product.brand">
+                                                <label for="brand-{{product.brand}}">{{product.brand}}</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <h4 class="mb-2" style="padding-bottom: 5px;">Budget</h4>
+                                    <input type="range" class="form-range w-100" id="rangeInput" 
+                                    name="rangeInput" [min]="globalMinPrice"  [max]="globalMaxPrice"  [value]="maxPrice"
+                                    (input)="onPriceChange($event)">
+                                    
+
+                                    <output id="amount" name="amount" min-value="0" max-value="500"
+                                        for="rangeInput">{{maxPrice}}</output>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9" style="overflow-y: scroll; height: 600px; position: relative; ">
+                        <div class="row g-4 ">
+                            <div class="col-md-6 col-lg-6 col-xl-4" *ngFor="let product of filteredProducts">
+                                <app-product [prod]="product"></app-product>
+                            </div>
+                        </div>
+
+                        <div infiniteScroll [infiniteScrollDistance]="scrollDistance"
+                            [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollDisabled]="isLoading"
+                            (scrolled)="onScroll()">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

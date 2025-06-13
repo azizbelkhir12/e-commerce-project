@@ -1,0 +1,385 @@
+/* ================================================
+                  Account Dashboard Styles
+================================================ */
+:root {
+  --light: #f8f9fa;
+  --border: #e9ecef;
+  --secondary: #6c757d;
+  --accent: #088179;
+  --primary: #212529;
+  --white: #ffffff;
+  --radius: 0.375rem;
+  --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --transition: all 0.2s ease;
+}
+
+/* Base Layout */
+.breadcrumb {
+  padding: 1rem 0;
+  background-color: var(--light);
+  border-bottom: 1px solid var(--border);
+}
+
+.breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0 1rem;
+}
+
+.breadcrumb__link {
+  font-size: 0.875rem;
+  color: var(--secondary);
+  transition: var(--transition);
+}
+
+.breadcrumb__link:hover {
+  color: var(--accent);
+}
+
+.accounts {
+  padding: 1.5rem 1rem;
+}
+
+.accounts-container {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) 1fr;
+  gap: 1.5rem;
+}
+
+/* Navigation Tabs */
+.account-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 1rem;
+}
+
+.account-tab {
+  padding: 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  color: var(--secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.account-tab i {
+  font-size: 1.1rem;
+  min-width: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.account-tab:hover {
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--primary);
+}
+
+.account-tab.active-tab {
+  background: var(--primary);
+  color: var(--white);
+  font-weight: 500;
+}
+
+.account-tab.active-tab i {
+  color: var(--white);
+}
+
+/* Content Area */
+.tabs-content {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.tab-content {
+  display: none;
+  padding: 1.5rem;
+}
+
+.tab-content.active-tab {
+  display: block;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tab-header {
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  color: var(--primary);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Profile Section */
+.profile-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profile-field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.profile-field .label {
+  font-weight: 500;
+  color: var(--primary);
+  min-width: 120px;
+}
+
+.profile-field .value {
+  color: var(--secondary);
+  flex: 1;
+  min-width: 200px;
+}
+
+.profile-photo-column {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-image-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--border);
+}
+
+/* Orders Table */
+.placed-order-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.placed-order-table th,
+.placed-order-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.placed-order-table th {
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--light);
+}
+
+.view-order {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.view-order:hover {
+  text-decoration: underline;
+}
+
+/* Forms */
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.form-input {
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+  transition: var(--transition);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(8, 129, 121, 0.1);
+}
+
+.form-btn-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.btn {
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #000;
+  color: white;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn--primary:hover:not(:disabled) {
+  color: #000;
+  transform: translateY(-2px);
+  background-color: transparent;
+  border: #000 1px solid;
+}
+
+.btn:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+}
+
+.btn-secondary {
+  background: var(--light);
+  color: var(--primary);
+  border: 1px solid var(--border);
+}
+
+/* Status Text Classes */
+.text-pending {
+  color: #ffd54d;
+}
+.text-canceled {
+  color: #ff5454;
+}
+.text-delivered {
+  color: #059200;
+}
+.text-confirmed {
+  color: #4c5eff;
+}
+
+/* ================================================
+                  RESPONSIVE ADJUSTMENTS
+================================================ */
+@media (max-width: 992px) {
+  .accounts-container {
+    grid-template-columns: 1fr;
+  }
+
+  .account-tabs {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .account-tab {
+    flex: 1 0 160px;
+  }
+
+  .profile-field .label {
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .placed-order-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .profile-container {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-photo-column {
+    order: -1;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-btn-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .accounts {
+    padding: 1rem 0.5rem;
+  }
+
+  .tab-content {
+    padding: 1rem;
+  }
+
+  .account-tab {
+    flex: 1 0 120px;
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+
+  .profile-field {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .profile-field .label {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .account-tab {
+    flex: 1 0 100%;
+  }
+
+  .profile-image-container {
+    width: 120px;
+    height: 120px;
+  }
+
+  .tab-header {
+    font-size: 1.25rem;
+  }
+}

@@ -1,0 +1,110 @@
+<!--=============== MAIN ===============-->
+<main class="main">
+  <!--=============== BREADCRUMB ===============-->
+  <app-banner [titre1]="title1" [titre2]="title2" ></app-banner>
+
+
+  <!--=============== LOGIN-REGISTER ===============-->
+  <section class="login-register section--lg">
+    <div class="login-register__container container grid">
+      <div class="register">
+        <h3 class="section__title">Create an Account</h3>
+        <form class="form grid" (submit)="register()">
+          <input
+            type="text"
+            placeholder="Username"
+            class="form__input"
+            [(ngModel)]="username"
+            name="username"
+            required
+            minlength="3"
+            maxlength="20"
+            #usernameRef="ngModel"
+          />
+          <small
+            class="error"
+            style="color: rgb(255, 66, 66)"
+            *ngIf="usernameRef.invalid && usernameRef.touched"
+            >Username must be at least 3 characters</small
+          >
+          <input
+            type="email"
+            placeholder="Your Email"
+            class="form__input"
+            [(ngModel)]="email"
+            name="email"
+            required
+            email
+            #emailRef="ngModel"
+          />
+          <small
+            class="error"
+            style="color: rgb(255, 66, 66)"
+            *ngIf="emailRef.invalid && emailRef.touched"
+            >Enter a valid email</small
+          >
+          <input
+            type="password"
+            placeholder="Your Password"
+            class="form__input"
+            [(ngModel)]="password"
+            name="password"
+            required
+            minlength="8"
+            #passwordRef="ngModel"
+            (input)="updatePasswordStrength(password)"
+          />
+          <small
+            class="error"
+            style="color: rgb(255, 66, 66)"
+            *ngIf="passwordRef.invalid && passwordRef.touched"
+            >Password must be at least 8 characters</small
+          >
+          <div class="password-strength" *ngIf="password">
+            <div
+              class="strength-meter"
+              [style.width.%]="passwordStrength * 20"
+              [style.background-color]="getStrengthColor()"
+            ></div>
+          </div>
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            class="form__input"
+            [(ngModel)]="confirmPassword"
+            name="confirmPassword"
+            required
+            #confirmPasswordRef="ngModel"
+          />
+          <small
+            class="error"
+            style="color: rgb(255, 66, 66)"
+            *ngIf="confirmPasswordRef.invalid && confirmPasswordRef.touched"
+            >Please confirm your password</small
+          >
+          <div class="form__btn">
+            <button class="btn" type="submit">Submit & Register</button>
+          </div>
+        </form>
+        <button class="google-login" (click)="SignupWithGoogle()">
+          <img
+            src="https://www.svgrepo.com/show/355037/google.svg"
+            alt="Google
+          Logo"
+            alt="Google Logo"
+            class="google-logo"
+          />
+          Register with Google
+        </button>
+        <div class="form__links">
+          <a routerLink="/login">Already have an account? Login here</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script src="assets/js/main.js"></script>
+<script></script>

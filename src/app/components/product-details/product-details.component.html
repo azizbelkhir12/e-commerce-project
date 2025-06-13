@@ -1,0 +1,694 @@
+<main class="main" *ngIf="product">
+  <!-- ================================================ BREADCRUMB ================================================ -->
+  <section class="breadcrumb">
+    <ul class="breadcrumb-list flexitem container">
+      <li><a href="index.html" class="breadcrumb-link">Home</a></li>
+      <li><span class="breadcrumb-link">></span></li>
+      <li><span class="breadcrumb-link">Fashion</span></li>
+      <li><span class="breadcrumb-link">></span></li>
+      <li><span class="breadcrumb-link">Henely Shirt</span></li>
+    </ul>
+  </section>
+
+  <ng-template #noProduct>
+    <div class="no-product-container">
+      <div class="no-product-content">
+        <div class="no-product-icon">
+          <i class="ri-error-warning-line"></i>
+        </div>
+        <h3 class="no-product-title">Product Not Found</h3>
+        <p class="no-product-message">
+          We couldn't find the product you're looking for. It might be
+          unavailable or removed.
+        </p>
+        <div class="no-product-actions">
+          <a routerLink="/" class="btn btn-primary">Continue Shopping</a>
+          <a routerLink="/contact" class="btn btn-outline">Contact Support</a>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- ================================================ DETAILS ================================================ -->
+  <section class="details section-lg">
+    <div class="details-container container grid">
+      <div class="details-group">
+        <img
+          [src]="product?.images?.[initialImage]"
+          alt="Product Image"
+          class="details-img"
+        />
+
+        <div class="details-small-images grid">
+          <img
+            *ngFor="let image of product?.images; let i = index"
+            [src]="image"
+            alt="Product Thumbnail"
+            class="details-small-img"
+            (click)="changeImage(i)"
+          />
+        </div>
+      </div>
+
+      <div class="details-group">
+        <h3 class="details-title">{{ product?.name }}</h3>
+        <p class="details-brand">
+          Brands: <span>{{ product?.brand }}</span>
+        </p>
+
+        <div class="details-price flexitem">
+          <span class="new-price">${{ product?.price }}</span>
+          <span *ngIf="product?.oldPrice" class="old-price"
+            >${{ product?.oldPrice }}</span
+          >
+          <span *ngIf="product?.discount" class="save-price">
+            <i class="ri-price-tag-3-line"></i> {{ product?.discount }}%
+            Off</span
+          >
+        </div>
+
+        <p class="short-description">{{ product?.description }}</p>
+
+        <ul class="product-list">
+          <li class="list-item flexitem">
+            <i class="ri-vip-crown-line"></i> 1 Year Warranty
+          </li>
+          <li class="list-item flexitem">
+            <i class="ri-refresh-line"></i> 30 Day Return Policy
+          </li>
+          <li class="list-item flexitem">
+            <i class="ri-bank-card-line"></i> Cash on Delivery available
+          </li>
+        </ul>
+
+        <div class="details-size flexitem">
+          <span class="details-size-title">Size</span>
+          <ul class="size-list">
+            <li *ngFor="let size of sizes">
+              <div
+                class="size-link"
+                [class.active]="selectedSize === size"
+                (click)="onSizeSelect(size)"
+              >
+                {{ size }}
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="details-action">
+          <input
+            type="number"
+            class="quantity"
+            [(ngModel)]="quantity"
+            min="1"
+          />
+          <button class="btn btn-sm" (click)="addToCart(product)">
+            Add To Cart
+          </button>
+          <button class="details-action-btn">
+            <i class="ri-heart-line"></i>
+          </button>
+        </div>
+
+        <div class="details-meta">
+          <li class="meta-list flexitem">
+            <span>SKU:</span>
+            N/A {{ product?.sku }}
+          </li>
+          <li class="meta-list flexitem">
+            <span>Tags:</span>
+
+            <span class="tag-link">Fashion</span>
+            <span class="tag-link">Clothing</span>
+            <span class="tag-link">Shirts</span>
+          </li>
+          <li class="meta-list flexitem">
+            <span>Availability:</span> {{ product?.stock }} Items in Stock
+          </li>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================ DETAILS TAB ================================================ -->
+  <section class="product-details container">
+    <div class="tabs-container">
+      <div class="tabs">
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'info'"
+          (click)="activeTab = 'info'"
+        >
+          <i class="icon-info"></i>
+          <span>Additional Info</span>
+        </button>
+        <button
+          class="tab-btn"
+          [class.active]="activeTab === 'reviews'"
+          (click)="activeTab = 'reviews'"
+        >
+          <i class="icon-review"></i>
+          <span>Reviews ({{ reviews.length }})</span>
+        </button>
+      </div>
+
+      <div class="tab-content">
+        <!-- Product Information Tab -->
+        <div *ngIf="activeTab === 'info'" class="info-content">
+          <h3 class="content-title">Product Specifications</h3>
+          <div class="specs-grid">
+            <div class="spec-item">
+              <span class="spec-label">Brand</span>
+              <span class="spec-value">{{ product?.brand }}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Model</span>
+              <span class="spec-value">{{ product?.model || "XYZ123" }}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Material</span>
+              <span class="spec-value">High-quality</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Warranty</span>
+              <span class="spec-value">1 year</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Color</span>
+              <span class="spec-value">Red</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Size</span>
+              <span class="spec-value">L</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div *ngIf="activeTab === 'reviews'" class="reviews-content">
+          <div *ngIf="reviews.length > 0; else noReviews">
+            <div class="reviews-grid">
+              <div *ngFor="let review of reviews" class="review-card">
+                <div class="reviewer-info">
+                  <i class="ri-user-fill reviewer-avatar" alt="Reviewer"></i>
+                  <div>
+                    <h4 class="reviewer-name">
+                      {{ review.name }}
+                    </h4>
+                    <div class="rating-stars">
+                      <span
+                        *ngFor="let star of getFilledStars(review.rating)"
+                        class="filled"
+                      >
+                        <i class="ri-star-fill"></i>
+                      </span>
+                      <span
+                        *ngFor="let star of getEmptyStars(review.rating)"
+                        class="empty"
+                      >
+                        <i class="ri-star-line"></i>
+                      </span>
+                    </div>
+                    <p class="review-text">{{ review.review }}</p>
+                  </div>
+
+                  <!-- Edit/Delete buttons for current user's reviews -->
+                  <div *ngIf="checkCurrentUser(review)" class="review-actions">
+                    <button
+                      class="action-btn"
+                      aria-label="Edit Review"
+                      (click)="startEditing(review)"
+                    >
+                      <i class="ri-edit-line"></i>
+                    </button>
+                    <button
+                      class="action-btn"
+                      aria-label="Delete Review"
+                      (click)="deleteReview(review._id)"
+                    >
+                      <i class="ri-delete-bin-line"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div *ngIf="review.editing">
+                  <div class="edit-review-form">
+                    <textarea
+                      [(ngModel)]="editReview"
+                      class="form-textarea"
+                      maxlength="200"
+                    ></textarea>
+                    <div class="star-rating-edit">
+                      <span
+                        *ngFor="let star of [1, 2, 3, 4, 5]"
+                        (click)="review.editedRating = star"
+                        [class.active]="
+                          star <= (review.editedRating || review.rating)
+                        "
+                      >
+                        ★
+                      </span>
+                    </div>
+                    <div class="edit-review-actions">
+                      <button
+                        (click)="updateReview(review._id, review)"
+                        class="btn btn-sm"
+                      >
+                        Save
+                      </button>
+                      <button
+                        (click)="cancelEdit(review)"
+                        class="btn btn-sm btn-cancel"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <span class="review-date">{{ review.createdAt | date }}</span>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #noReviews>
+            <div class="no-reviews">
+              <i class="ri-chat-off-line"></i>
+              <h3 class="no-reviews-title">No Reviews Yet</h3>
+              <p class="no-reviews-text">
+                Be the first to review this product!
+              </p>
+            </div>
+          </ng-template>
+          <br />
+
+          <!-- Review Form -->
+          <div class="review-form-container">
+            <h3 class="form-title">Share Your Experience</h3>
+            <form (ngSubmit)="addReview()" class="review-form">
+              <div class="form-group">
+                <textarea
+                  [(ngModel)]="newReview.review"
+                  name="review"
+                  class="form-textarea"
+                  placeholder="Tell us what you think about this product..."
+                  maxlength="200"
+                ></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group rating-group">
+                  <label class="rating-label">Your Rating</label>
+                  <div class="star-rating">
+                    <span
+                      *ngFor="let star of [1, 2, 3, 4, 5]"
+                      (click)="newReview.rating = star"
+                      [class.active]="star <= newReview.rating"
+                    >
+                      ★
+                    </span>
+                  </div>
+                </div>
+                <button type="submit" class="submit-btn">Submit Review</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================ PRODUCTS ================================================ -->
+  <!--
+  <section class="products container section-lg">
+    <h3 class="section-title"><span>Related</span> Products</h3>
+
+    <div class="products-container grid">
+      <div *ngFor="let product of relatedProducts" class="product-item">
+        <div class="product-banner">
+          <a [routerLink]="['/product', product.id]" class="product-images">
+            <img
+              [src]="product.imageUrl1"
+              alt="Product image"
+              class="product-img default"
+            />
+            <img
+              [src]="product.imageUrl2"
+              alt="Product hover image"
+              class="product-img hover"
+            />
+          </a>
+
+          <div class="product-actions">
+            <a href="#" class="action-btn" aria-label="Quick View">
+              <i class="ri-eye-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Add to Wishlist">
+              <i class="ri-heart-3-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Compare">
+              <i class="ri-shuffle-line"></i>
+            </a>
+          </div>
+
+          <div *ngIf="product.discount" class="product-badge light-pink">
+            {{ product.discount }}
+          </div>
+        </div>
+
+        <div class="product-content">
+          <span class="product-category">{{ product.category }}</span>
+          <a [routerLink]="['/product', product.id]">
+            <h3 class="product-title">{{ product.name }}</h3>
+          </a>
+          <div class="product-rating">
+            <i
+              class="ri-star-fill"
+              *ngFor="let star of getFilledStars(product.rating)"
+            ></i>
+            <i
+              class="ri-star-line"
+              *ngFor="let star of getEmptyStars(product.rating)"
+            ></i>
+          </div>
+          <div class="product-price flexitem">
+            <span class="new-price">{{ product.newPrice | currency }}</span>
+            <span class="old-price" *ngIf="product.oldPrice">{{
+              product.oldPrice | currency
+            }}</span>
+          </div>
+
+          <a
+            href="#"
+            (click)="addToCart()"
+            class="action-btn cart-btn"
+            aria-label="Add to Cart"
+          >
+            <i class="ri-shopping-bag-line"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+  <!--
+  <section class="products container section-lg">
+    <h3 class="section-title"><span>Related</span> Products</h3>
+
+    <div class="products-container grid">
+      <div *ngFor="let product of relatedProducts" class="product-item">
+        <div class="product-banner">
+          <a [routerLink]="['/product', product.id]" class="product-images">
+            <img
+              [src]="product.imageUrl1"
+              alt="Product image"
+              class="product-img default"
+            />
+            <img
+              [src]="product.imageUrl2"
+              alt="Product hover image"
+              class="product-img hover"
+            />
+          </a>
+
+          <div class="product-actions">
+            <a href="#" class="action-btn" aria-label="Quick View">
+              <i class="ri-eye-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Add to Wishlist">
+              <i class="ri-heart-3-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Compare">
+              <i class="ri-shuffle-line"></i>
+            </a>
+          </div>
+
+          <div *ngIf="product.discount" class="product-badge light-pink">
+            {{ product.discount }}
+          </div>
+        </div>
+
+        <div class="product-content">
+          <span class="product-category">{{ product.category }}</span>
+          <a [routerLink]="['/product', product.id]">
+            <h3 class="product-title">{{ product.name }}</h3>
+          </a>
+          <div class="product-rating">
+            <i
+              class="ri-star-fill"
+              *ngFor="let star of getFilledStars(product.rating)"
+            ></i>
+            <i
+              class="ri-star-line"
+              *ngFor="let star of getEmptyStars(product.rating)"
+            ></i>
+          </div>
+          <div class="product-price flexitem">
+            <span class="new-price">{{ product.newPrice | currency }}</span>
+            <span class="old-price" *ngIf="product.oldPrice">{{
+              product.oldPrice | currency
+            }}</span>
+          </div>
+
+          <a
+            href="#"
+            (click)="addToCart()"
+            class="action-btn cart-btn"
+            aria-label="Add to Cart"
+          >
+            <i class="ri-shopping-bag-line"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+  <section class="products container section-lg">
+    <h3 class="section-title"><span>Related</span> Products</h3>
+
+    <div class="products-container grid">
+      <div class="product-item">
+        <div class="product-banner">
+          <a href="details.html" class="product-images">
+            <img
+              src="assets/images/product-1-1.jpg"
+              alt=""
+              class="product-img default"
+            />
+            <img
+              src="assets/images/product-1-2.jpg"
+              alt=""
+              class="product-img hover"
+            />
+          </a>
+
+          <div class="product-actions">
+            <a href="#" class="action-btn" aria-label="Quick View">
+              <i class="ri-eye-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Add to Wishlist">
+              <i class="ri-heart-3-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Compare">
+              <i class="ri-shuffle-line"></i>
+            </a>
+          </div>
+
+          <div class="product-badge light-pink">Hot</div>
+        </div>
+
+        <div class="product-content">
+          <span class="product-category">Clothing</span>
+          <a href="details.html">
+            <h3 class="product-title">Colorful Pattern Shirts</h3>
+          </a>
+          <div class="product-rating">
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+          </div>
+          <div class="product-price flexitem">
+            <span class="new-price">$238.85</span>
+            <span class="old-price">$280.76</span>
+          </div>
+
+          <a href="#" class="action-btn cart-btn" aria-label="Add to Cart">
+            <i class="ri-shopping-bag-line"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="product-item">
+        <div class="product-banner">
+          <a href="details.html" class="product-images">
+            <img
+              src="assets/images/product-6-1.jpg"
+              alt=""
+              class="product-img default"
+            />
+            <img
+              src="assets/images/product-6-2.jpg"
+              alt=""
+              class="product-img hover"
+            />
+          </a>
+
+          <div class="product-actions">
+            <a href="#" class="action-btn" aria-label="Quick View">
+              <i class="ri-eye-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Add to Wishlist">
+              <i class="ri-heart-3-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Compare">
+              <i class="ri-shuffle-line"></i>
+            </a>
+          </div>
+
+          <div class="product-badge light-pink">-22%</div>
+        </div>
+
+        <div class="product-content">
+          <span class="product-category">Clothing</span>
+          <a href="details.html">
+            <h3 class="product-title">Colorful Pattern Shirts</h3>
+          </a>
+          <div class="product-rating">
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+          </div>
+          <div class="product-price flexitem">
+            <span class="new-price">$238.85</span>
+            <span class="old-price">$280.76</span>
+          </div>
+
+          <a href="#" class="action-btn cart-btn" aria-label="Add to Cart">
+            <i class="ri-shopping-bag-line"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="product-item">
+        <div class="product-banner">
+          <a href="details.html" class="product-images">
+            <img
+              src="assets/images/product-2-1.jpg"
+              alt=""
+              class="product-img default"
+            />
+            <img
+              src="assets/images/product-2-2.jpg"
+              alt=""
+              class="product-img hover"
+            />
+          </a>
+
+          <div class="product-actions">
+            <a href="#" class="action-btn" aria-label="Quick View">
+              <i class="ri-eye-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Add to Wishlist">
+              <i class="ri-heart-3-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Compare">
+              <i class="ri-shuffle-line"></i>
+            </a>
+          </div>
+
+          <div class="product-badge light-green">Hot</div>
+        </div>
+
+        <div class="product-content">
+          <span class="product-category">Clothing</span>
+          <a href="details.html">
+            <h3 class="product-title">Colorful Pattern Shirts</h3>
+          </a>
+          <div class="product-rating">
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+          </div>
+          <div class="product-price flexitem">
+            <span class="new-price">$238.85</span>
+            <span class="old-price">$280.76</span>
+          </div>
+
+          <a href="#" class="action-btn cart-btn" aria-label="Add to Cart">
+            <i class="ri-shopping-bag-line"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="product-item">
+        <div class="product-banner">
+          <a href="details.html" class="product-images">
+            <img
+              src="assets/images/product-3-1.jpg"
+              alt=""
+              class="product-img default"
+            />
+            <img
+              src="assets/images/product-3-2.jpg"
+              alt=""
+              class="product-img hover"
+            />
+          </a>
+
+          <div class="product-actions">
+            <a href="#" class="action-btn" aria-label="Quick View">
+              <i class="ri-eye-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Add to Wishlist">
+              <i class="ri-heart-3-line"></i>
+            </a>
+
+            <a href="#" class="action-btn" aria-label="Compare">
+              <i class="ri-shuffle-line"></i>
+            </a>
+          </div>
+
+          <div class="product-badge light-orange">Hot</div>
+        </div>
+
+        <div class="product-content">
+          <span class="product-category">Clothing</span>
+          <a href="details.html">
+            <h3 class="product-title">Colorful Pattern Shirts</h3>
+          </a>
+          <div class="product-rating">
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+          </div>
+          <div class="product-price flexitem">
+            <span class="new-price">$238.85</span>
+            <span class="old-price">$280.76</span>
+          </div>
+
+          <a href="#" class="action-btn cart-btn" aria-label="Add to Cart">
+            <i class="ri-shopping-bag-line"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

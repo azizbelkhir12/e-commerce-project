@@ -1,0 +1,157 @@
+<div class="tables-wrapper">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card-style mb-30">
+          <div class="title d-flex flex-wrap justify-content-between align-items-center" style="padding: 20px">
+            <div class="left">
+              <h6 class="mb-10">Products Management</h6>
+            </div>
+            <div class="right">
+              <a routerLink="/admin/products/add" class="main-btn primary-btn rounded-full btn-hover">
+                <i class="lni lni-plus"></i>
+                add product
+              </a>
+              <!-- end select -->
+            </div>
+          </div>
+
+          
+  
+          <div class="table-wrapper table-responsive" style="margin-top: 50px;">
+            <table class="table">
+              <thead class="table">
+                <tr>
+                  <th class="text-center">
+                    <h6>Product Image</h6>
+                  </th>
+                  <th class="text-center">
+                    <h6>Product Brand</h6>
+                  </th>
+                  <th class="text-center">
+                    <h6>Product Name</h6>
+                  </th>
+                  <th class="text-center">
+                    <h6>Product Description</h6>
+                  </th>
+                  <th class="text-center">
+                    <h6>Product Price</h6>
+                  </th>
+                  <th class="text-center">
+                    <h6>Product Category</h6>
+                  </th>
+                  <th class="text-center">
+                    <h6>Product Stock</h6>
+                  </th>
+                  <th class="text-center">
+                    <h6>Action</h6>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of products">
+                  <td class="text-center">
+                    <div class="lead">
+                      <div class="lead-image">
+                        <img src="{{product.images[0]}}" alt="" class="img-fluid" />
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <p>{{product.brand}}</p>
+                  </td>
+                  <td class="text-center">
+                    <p>{{product.name}}</p>
+                  </td>
+                  <td class="text-center">
+                    <p>{{product.description}}</p>
+                  </td>
+                  <td class="text-center">
+                    <p>{{product.price | currency}}</p>
+                  </td>
+                  <td class="text-center">
+                    <p>{{product.category}}</p>
+                  </td>
+                  <td class="text-center">
+                    <p>{{product.stock}}</p>
+                  </td>
+                  <td class="text-center">
+                    <button class="text-danger" (click)="deleteProduct(product._id)">
+                      <i class="lni lni-trash-can"></i>
+                    </button>    
+                    <button style="color:#005b8f; padding-left: 10px;" (click)="editProduct(product)" data-bs-toggle="modal" data-bs-target="#editProductModal">
+                      <i class="lni lni-pencil"></i>
+                    </button>      
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          
+            <!-- end table -->
+          </div>
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+    <!-- end row -->
+
+    <!-- Edit User Modal  -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg"> <!-- Made it wider for comfort -->
+        <div class="modal-content rounded-3 shadow">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title text-white" id="editUserModalLabel">Edit Product</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body px-4 py-3">
+            <form *ngIf="editingProduct">
+              <div class="mb-3">
+                <label for="brand" class="form-label">Brand</label>
+                <input type="text" id="brand" class="form-control" [(ngModel)]="editingProduct.brand" name="brand">
+              </div>
+    
+              <div class="mb-3">
+                <label for="name" class="form-label">Product Name</label>
+                <input type="text" id="name" class="form-control" [(ngModel)]="editingProduct.name" name="name">
+              </div>
+    
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" class="form-control" rows="3" [(ngModel)]="editingProduct.description" name="description"></textarea>
+              </div>
+    
+              <div class="mb-3">
+                <label for="price" class="form-label">Price ($)</label>
+                <input type="number" id="price" class="form-control" [(ngModel)]="editingProduct.price" name="price">
+              </div>
+    
+              <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select id="category" class="form-select" [(ngModel)]="editingProduct.category" name="category">
+                  <option *ngFor="let category of categories" [value]="category.Catname">
+                    {{ category.Catname }}
+                  </option>
+                </select>
+              </div>
+    
+              <div class="mb-3">
+                <label for="stock" class="form-label">Stock Quantity</label>
+                <input type="number" id="stock" class="form-control" [(ngModel)]="editingProduct.stock" name="stock">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer px-4 py-3">
+            <button type="button" class="btn btn-success" (click)="updateProduct()" data-bs-dismiss="modal">
+              Save Changes
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="cancelEdit()" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  
+  
+  </div>

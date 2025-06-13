@@ -1,0 +1,93 @@
+<div class="tables-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card-style mb-30">
+        <div class="title d-flex flex-wrap justify-content-between align-items-center" style="padding: 20px">
+          <div class="left">
+            <h6 class="mb-10">Coupons Management</h6>
+          </div>
+          <div class="right">
+            <a class="main-btn primary-btn rounded-full btn-hover" data-bs-toggle="modal" data-bs-target="#addCouponModal">
+              <i class="lni lni-plus"></i> Add Coupon
+            </a>
+          </div>
+        </div>
+
+        <div class="table-wrapper table-responsive" style="padding: 30px;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="lead-info">
+                  <h6>Coupon Code</h6>
+                </th>
+                <th class="lead-email">
+                  <h6>Coupon Discount</h6>
+                </th>
+                <th class="lead-email">
+                  <h6>Thematic</h6>
+                </th>
+                <th class="lead-email">
+                  <h6>Validity</h6>
+                </th>
+                <th>
+                  <h6>Action</h6>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let coupon of coupons">
+                <td class="min-width">
+                  <div class="lead">
+                    <div class="lead-text">
+                      <p>{{ coupon.couponCode }}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="min-width">
+                  <p>{{ coupon.discount }}%</p>
+                </td>
+                <td class="min-width">
+                  <p>{{ coupon.thematique }}</p>
+                </td>
+                <td class="min-width">
+                  <p>{{ coupon.dateFin | date:'shortDate' }}</p>
+                </td>
+                <td class="min-width">
+                  <button class="text-danger" (click)="deleteCoupon(coupon._id)">
+                    <i class="lni lni-trash-can"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Coupon Modal -->
+<div class="modal fade" id="addCouponModal" tabindex="-1" aria-labelledby="addCouponModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCouponModalLabel">Add Coupon</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control mb-2" placeholder="Coupon Code" [(ngModel)]="newCouponCode" />
+        <select class="form-control mb-2" [(ngModel)]="selectedDiscount">
+          <option *ngFor="let discount of [5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90]" [value]="discount">
+            {{ discount }}%
+          </option>
+        </select>
+        <input type="text" class="form-control mb-2" placeholder="Coupon Thematic" [(ngModel)]="newCouponThematic" />
+        <input type="number" class="form-control mb-2" placeholder="Validity in Days" [(ngModel)]="couponValidity" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-btn btn-btn-primary" data-bs-dismiss="modal" (click)="addCoupon()">Save changes</button>
+        <button type="button" class="btn-btn btn-btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

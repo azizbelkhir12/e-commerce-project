@@ -1,0 +1,57 @@
+<div class="product__item">
+  <div class="product__banner">
+    <a routerLink="/product-details/{{ prod._id }}" class="product__images">
+      <img
+        [src]="prod.images[0]"
+        alt="{{ prod.name }}"
+        class="product__img default"
+      />
+      <img
+        [src]="prod.images[1]"
+        alt="{{ prod.name }}"
+        class="product__img hover"
+      />
+    </a>
+    <div class="product__actions">
+      <a routerLink="/product-details/{{ prod._id }}"></a>
+    </div>
+    <div class="product__badge light-pink" *ngIf="prod.discount > 0">
+      -{{ prod.discount }}%
+    </div>
+    <div
+      [ngClass]="{
+        product__badge__INstock: prod.stock > 0,
+        product__badge__OUTstock: prod.stock === 0
+      }"
+    >
+      {{ prod.stock === 0 ? "Sold Out" : "In Stock" }}
+    </div>
+  </div>
+  <div class="product__content">
+    <span class="product__category">{{ prod.category }}</span>
+    <a>
+      <h3 class="product__title">{{ prod.name }}</h3>
+    </a>
+    <div class="product__rating">
+      <i class="fi fi-rs-star"></i>
+      <i class="fi fi-rs-star"></i>
+      <i class="fi fi-rs-star"></i>
+      <i class="fi fi-rs-star"></i>
+      <i class="fi fi-rs-star"></i>
+    </div>
+    <div class="product__price flex">
+      <span class="new__price" *ngIf="prod.discount > 0"
+        >${{ (prod.price * (1 - prod.discount * 0.01)).toFixed(2) }}</span
+      >
+      <span class="new__price" *ngIf="prod.discount == 0"
+        >${{ prod.price.toFixed(2) }}</span
+      >
+      <span class="old__price" *ngIf="prod.discount > 0"
+        >${{ prod.price.toFixed(2) }}</span
+      >
+    </div>
+    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart" (click)="addToCart(prod)">
+      <i class="fi fi-rs-shopping-bag-add"></i>
+    </a>
+  </div>
+</div>

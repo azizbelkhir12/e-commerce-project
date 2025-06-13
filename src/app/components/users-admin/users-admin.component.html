@@ -1,0 +1,166 @@
+<div class="tables-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card-style mb-30">
+        <h6 class="mb-10" style="padding: 20px">Users Management</h6>
+
+        <div class="table-wrapper table-responsive" style="margin-top: 50px">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="lead-info">
+                  <h6>User Name</h6>
+                </th>
+                <th class="lead-email">
+                  <h6>Email</h6>
+                </th>
+                <th class="lead-phone">
+                  <h6>Phone Number</h6>
+                </th>
+                <th class="lead-company">
+                  <h6>Address</h6>
+                </th>
+                <th>
+                  <h6>Action</h6>
+                </th>
+              </tr>
+              <!-- end table row-->
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td class="min-width">
+                  <div class="lead">
+                    <div class="lead-text">
+                      <p>{{ user.username }}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="min-width">
+                  <p>{{ user.email }}</p>
+                </td>
+                <td class="min-width">
+                  <p>{{ user.phone }}</p>
+                </td>
+                <td class="min-width">
+                  <p *ngIf="user.address?.country">
+                    {{ user.address.country }}
+                  </p>
+                </td>
+                <td class="min-width">
+                  <!-- Delete Button -->
+                  <button class="text-danger" (click)="deleteUser(user._id)">
+                    <i class="lni lni-trash-can"></i>
+                  </button>
+
+                  <!-- Edit Button -->
+                  <button
+                    class="text-primary"
+                    (click)="editUser(user)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editUserModal"
+                    style="color: #005b8f; padding-left: 10px"
+                  >
+                    <i class="lni lni-pencil"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- end table -->
+        </div>
+      </div>
+      <!-- end card -->
+    </div>
+    <!-- end col -->
+  </div>
+  <!-- end row -->
+</div>
+
+<!-- Edit User Modal (This is your pop-up) -->
+<div
+  class="modal fade"
+  id="editUserModal"
+  tabindex="-1"
+  aria-labelledby="editUserModalLabel"
+  aria-hidden="true"
+>
+  <form [formGroup]="editForm">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <input
+            type="text"
+            class="form-control mb-2"
+            formControlName="username"
+            placeholder="Edit Username"
+          />
+
+          <div
+            *ngIf="
+              editForm.get('username')?.invalid &&
+              editForm.get('username')?.touched
+            "
+          >
+            <small class="text-danger"
+              >Username is required and must be valid.</small
+            >
+          </div>
+          <br />
+          <input
+            type="email"
+            class="form-control mb-2"
+            formControlName="email"
+            placeholder="Edit Email"
+          />
+          <div
+            *ngIf="
+              editForm.get('email')?.invalid && editForm.get('email')?.touched
+            "
+          >
+            <small class="text-danger"
+              >Email is required and must be a valid email address.</small
+            >
+          </div>
+          <br />
+
+          <input
+            type="text"
+            class="form-control mb-2"
+            formControlName="phone"
+            placeholder="Edit Phone Number"
+          />
+          <div
+            *ngIf="
+              editForm.get('phone')?.invalid && editForm.get('phone')?.touched
+            "
+          >
+            <small class="text-danger"
+              >Phone number is required and must be valid (8).</small
+            >
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="saveUser()"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            [disabled]="editForm.invalid"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

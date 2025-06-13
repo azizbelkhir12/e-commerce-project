@@ -1,0 +1,226 @@
+<header class="header">
+  <nav class="nav container" aria-label="Main navigation">
+    <!-- Logo -->
+    <a routerLink="/" class="nav__logo" aria-label="Home">
+      <img
+        class="nav__logo-img"
+        src="assets/img/logo.svg"
+        alt=""
+        width="120"
+        height="42"
+        loading="lazy"
+      />
+    </a>
+
+    <!-- Desktop Menu (Hidden on mobile) -->
+    <div class="nav__menu">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a
+            routerLink="/"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav__link"
+            aria-current="page"
+          >
+            Home
+          </a>
+        </li>
+        <li class="nav__item">
+          <a
+            routerLink="/products"
+            routerLinkActive="active-link"
+            class="nav__link"
+          >
+            Shop
+          </a>
+        </li>
+        <li class="nav__item">
+          <a
+            routerLink="/compare"
+            routerLinkActive="active-link"
+            class="nav__link"
+          >
+            Compare
+          </a>
+        </li>
+      </ul>
+
+      <!-- Desktop Search (Hidden on mobile) -->
+      <div class="header__search" *ngIf="showSearchBar">
+        <label for="search-input" class="visually-hidden"
+          >Search for items</label
+        >
+        <input
+          id="search-input"
+          [(ngModel)]="searchTerm"
+          type="search"
+          placeholder="Search For Items..."
+          class="form__input"
+          (input)="onSearchChange()"
+          aria-label="Search products"
+        />
+        <button class="search__btn" aria-label="Search">
+          <svg
+            class="search__icon"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+            <path
+              d="M21 21L16.65 16.65"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Actions -->
+    <div class="header__user-actions">
+      <button
+        class="header__action-btn mobile-search-btn"
+        (click)="toggleSearch()"
+      >
+        <svg
+          class="search__icon2"
+          viewBox="0 0 24 24"
+          fill="none"
+          width="24"
+          height="24"
+        >
+          <path
+            d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+          <path
+            d="M21 21L16.65 16.65"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </button>
+
+      <a
+        routerLink="/account"
+        class="header__action-btn"
+        aria-label="My account"
+      >
+        <svg class="user__icon" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M20 21V19C20 16.7909 18.2091 15 16 15H8C5.79086 15 4 16.7909 4 19V21"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+          <path
+            d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+      </a>
+
+      <a routerLink="/cart" class="header__action-btn" aria-label="Cart">
+        <svg class="cart__icon" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+          <path
+            d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"
+            stroke="currentColor"
+            stroke-width="2"
+          />
+          <path
+            d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span class="count" aria-live="polite">{{ cartItemCount }}</span>
+      </a>
+
+      <!-- Mobile Toggle Button -->
+      <button
+        class="nav__toggle"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen"
+        aria-label="Toggle Menu"
+      >
+        <span class="toggle__icon" [class.active]="menuOpen">
+          <span class="toggle__line toggle__line--top"></span>
+          <span class="toggle__line toggle__line--middle"></span>
+          <span class="toggle__line toggle__line--bottom"></span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Dropdown Menu (Mobile) -->
+    <div class="dropdown-menu" [class.active]="menuOpen" id="dropdown-menu">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a
+            routerLink="/"
+            routerLinkActive="active-link"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav__link"
+            aria-current="page"
+            (click)="closeMenu()"
+          >
+            Home
+          </a>
+        </li>
+        <li class="nav__item">
+          <a
+            routerLink="/products"
+            routerLinkActive="active-link"
+            class="nav__link"
+            (click)="closeMenu()"
+          >
+            Shop
+          </a>
+        </li>
+        <li class="nav__item">
+          <a
+            routerLink="/compare"
+            routerLinkActive="active-link"
+            class="nav__link"
+            (click)="closeMenu()"
+          >
+            Compare
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Dropdown Search (Mobile) -->
+    <div class="dropdown-search" [class.active]="searchOpen">
+      <label for="mobile-search-input" class="visually-hidden"
+        >Search for items</label
+      >
+      <input
+        id="mobile-search-input"
+        [(ngModel)]="searchTerm"
+        type="search"
+        placeholder="Search For Items..."
+        class="form__input"
+        (input)="onSearchChange()"
+        aria-label="Search products"
+      />
+    </div>
+  </nav>
+</header>

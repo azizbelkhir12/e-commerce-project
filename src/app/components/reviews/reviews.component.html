@@ -1,0 +1,63 @@
+<div class="tables-wrapper">
+
+  <!-- ========== table components start ========== -->
+  <section class="table-components py-4 ">
+    <div class="container ">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-12 align-middle">
+          <div class="card-style mb-30 ">
+            <h6 class="mb-3">Reviews Management</h6>
+
+          <div class="d-flex justify-content-center">
+            <div class="table-wrapper table-responsive">
+              <table class="table align-middle table-borderless table-hover">
+                <thead>
+                  <tr>
+                    <th class="min-width" style="width: 15%;">
+                      <h6>Client's name</h6>
+                    </th>
+                    <th class="min-width" style="width: 20%;">
+                      <h6>Product's name</h6>
+                    </th>
+                    <th class="min-width" style="width: 40%;">
+                      <h6>Review</h6>
+                    </th>
+                    <th class="min-width" style="width: 10%;">
+                      <h6>Rating</h6>
+                    </th>
+                    <th class="text-center" style="width: 10%;">
+                      <h6>Action</h6>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let review of reviews">
+                    <td class="text-start">
+                      <p>{{ review.name }}</p>
+                    </td>
+                    <td class="min-width">
+                      <p>{{ review.productId?.name || 'N/A' }}</p>
+                    </td>
+                    <td class="min-width">
+                      <p>{{ review.review }}</p>
+                    </td>
+                      <td class="min-width">
+                      <p>{{ review.rating }}/5</p>
+                    </td>
+                    <td class="min-width">
+                      <button class="text-danger" (click)="deleteReview(review._id)">
+                        <i class="lni lni-trash-can"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          </div>
+          <!-- end card -->
+        </div>
+      </div>
+
+</div>

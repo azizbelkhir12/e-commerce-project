@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .confirmation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .confirmation-box {
+    background-color: white;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  .confirmation-header {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  .confirmation-message {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+  }
+  
+  .confirmation-action {
+    margin-bottom: 30px;
+  }
+  
+  .confirmation-button {
+    background-color: #22c55e;
+    color: white;
+    font-size: 18px;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .confirmation-button:hover {
+    background-color: #16a34a;
+  }
+  
+  .footer {
+    font-size: 14px;
+    color: #bdc3c7;
+    margin-top: 20px;
+  }
+  
+  .footer a {
+    color: #22c55e;
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-info {
+    font-size: 12px;
+    color: #aaa;
+  }
+  

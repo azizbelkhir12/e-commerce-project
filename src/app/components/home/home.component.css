@@ -1,0 +1,137 @@
+/* Base Mobile Styles (default) */
+.products {
+  padding: 1.5rem 1rem;
+  overflow: hidden;
+}
+
+.section__title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.new__container {
+  position: relative;
+  padding: 0 1rem;
+}
+
+.swiper-wrapper {
+  padding-bottom: 1.5rem; /* Space for pagination */
+}
+
+.swiper-slide {
+  width: 85%;
+  margin-right: 1rem;
+}
+
+/* Mobile Navigation */
+.swiper-button-prev,
+.swiper-button-next {
+  display: none; /* Hide arrows on mobile by default */
+}
+
+.swiper-pagination.mobile-only {
+  display: block;
+  position: static;
+  margin-top: 1rem;
+}
+
+/* Tablet Styles (≥768px) */
+@media (min-width: 768px) {
+  .products {
+    padding: 2rem 1.5rem;
+  }
+
+  .swiper-slide {
+    width: calc(50% - 1rem);
+  }
+
+  .swiper-pagination.mobile-only {
+    display: none;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Small Desktop (≥992px) */
+@media (min-width: 992px) {
+  .swiper-slide {
+    width: calc(33.333% - 1rem);
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Large Desktop (≥1200px) */
+@media (min-width: 1200px) {
+  .products {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .swiper-slide {
+    width: calc(25% - 1rem);
+  }
+
+  .swiper-button-prev {
+    left: -20px;
+  }
+
+  .swiper-button-next {
+    right: -20px;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .swiper-slide {
+    user-select: none;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    transform: scale(0.9);
+  }
+}
+
+/* Accessibility Focus States */
+.swiper-button-prev:focus,
+.swiper-button-next:focus,
+.btn--link:focus {
+  outline: 2px solid #088179;
+  outline-offset: 2px;
+}
+
+/* View All Link */
+.view-all {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.btn--link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #088179;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.btn--link:hover {
+  background: rgba(8, 129, 121, 0.1);
+}

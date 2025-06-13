@@ -1,0 +1,259 @@
+<div class="main">
+  <app-banner titre1="Home" titre2="Checkout"></app-banner>
+
+  <!-- Checkout Section -->
+  <section class="checkout section--lg">
+    <app-payment-success *ngIf="showSuccessMessage"> </app-payment-success>
+    <div class="checkout__container container grid">
+      <!-- Billing Details Form -->
+      <div class="checkout__group details">
+        <h3 class="section__title">Billing Details</h3>
+        <form
+          class="form grid"
+          [formGroup]="checkoutForm"
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="form-group">
+            <input
+              type="text"
+              placeholder="Username"
+              class="form__input"
+              formControlName="name"
+            />
+            <div
+              *ngIf="
+                checkoutForm.get('name')?.invalid &&
+                checkoutForm.get('name')?.touched
+              "
+              class="error-message"
+            >
+              Name is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              placeholder="Street"
+              class="form__input"
+              formControlName="street"
+            />
+            <div
+              *ngIf="
+                checkoutForm.get('street')?.invalid &&
+                checkoutForm.get('street')?.touched
+              "
+              class="error-message"
+            >
+              Address is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              placeholder="City"
+              class="form__input"
+              formControlName="city"
+            />
+            <div
+              *ngIf="
+                checkoutForm.get('city')?.invalid &&
+                checkoutForm.get('city')?.touched
+              "
+              class="error-message"
+            >
+              City is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              placeholder="Country"
+              class="form__input"
+              formControlName="country"
+            />
+            <div
+              *ngIf="
+                checkoutForm.get('country')?.invalid &&
+                checkoutForm.get('country')?.touched
+              "
+              class="error-message"
+            >
+              Country is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              placeholder="Postcode"
+              class="form__input"
+              formControlName="postcode"
+            />
+            <div
+              *ngIf="
+                checkoutForm.get('postcode')?.invalid &&
+                checkoutForm.get('postcode')?.touched
+              "
+              class="error-message"
+            >
+              Postcode is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              placeholder="Phone"
+              class="form__input"
+              formControlName="phone"
+            />
+            <div
+              *ngIf="
+                checkoutForm.get('phone')?.invalid &&
+                checkoutForm.get('phone')?.touched
+              "
+              class="error-message"
+            >
+              Phone is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input
+              type="email"
+              placeholder="Email"
+              class="form__input"
+              formControlName="email"
+            />
+            <div
+              *ngIf="
+                checkoutForm.get('email')?.invalid &&
+                checkoutForm.get('email')?.touched
+              "
+              class="error-message"
+            >
+              A valid email is required.
+            </div>
+          </div>
+
+          <h3 class="checkout__title">Additional Information</h3>
+          <textarea
+            placeholder="Order notes"
+            class="form__input textarea"
+            formControlName="notes"
+          ></textarea>
+        </form>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="checkout__group summary">
+        <h3 class="section__title">Your Order</h3>
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cartItems">
+                <td>
+                  <div class="product-info">
+                    <img [src]="item.images" alt="" class="table-img" />
+                    <div>
+                      <h3 class="table-title">{{ item.name }}</h3>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="table-quantity">{{ item.quantity }}</span>
+                </td>
+                <td>
+                  <span class="table-subtotal">
+                    ${{ item.price * item.quantity | number : "1.2-2" }}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="cart-total-title">Subtotal</span></td>
+                <td></td>
+                <td>
+                  <span class="cart-total-price">
+                    ${{ cartSubtotal | number : "1.2-2" }}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="cart-total-title">Shipping</span></td>
+                <td></td>
+                <td>
+                  <span class="cart-total-price">
+                    ${{ shipping | number : "1.2-2" }}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="cart-total-title">Total</span></td>
+                <td></td>
+                <td>
+                  <span class="cart-total-price">
+                    ${{ total | number : "1.2-2" }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="payment__methods">
+          <h3 class="checkout__title payment__title">Payment</h3>
+          <div class="payment__option flex">
+            <input
+              type="radio"
+              name="radio"
+              id="l1"
+              checked
+              class="payment__input"
+              [(ngModel)]="selectedPayment"
+              [value]="'credit_card'"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label for="l1" class="payment__label">Pay with Card</label>
+          </div>
+          <div class="payment__option flex">
+            <input
+              type="radio"
+              name="radio"
+              id="l2"
+              class="payment__input"
+              [(ngModel)]="selectedPayment"
+              [value]="'cash_on_delivery'"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label for="l2" class="payment__label">Pay on Delivery</label>
+          </div>
+        </div>
+
+        <!-- Place Order Button -->
+        <button
+          class="btn btn--md checkout-btn"
+          (click)="onSubmit()"
+          [disabled]="isProcessingPayment || checkoutForm.invalid"
+        >
+          <span *ngIf="!isProcessingPayment">Place Order</span>
+          <span *ngIf="isProcessingPayment">Processing...</span>
+        </button>
+
+        <div *ngIf="paymentError" class="error-message">
+          {{ paymentError }}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
